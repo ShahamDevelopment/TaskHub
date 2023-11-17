@@ -15,6 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import me.stav.taskhub.HomeActivity;
+import me.stav.taskhub.LoginActivity;
 
 public class FirebaseHandler {
     private final Context context;
@@ -33,6 +34,27 @@ public class FirebaseHandler {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(context, HomeActivity.class);
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) { // Failed to login
+                    Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    // Function gets two strings, and uses Firebase to login.
+    public void registerWithEmailAndPassword(String email, String password) {
+        if (checkIsEmailValid(email) && checkIsPasswordValid(password)) {
+            fbAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) { // Login Succeed
+                    Toast.makeText(context, "Register Succeed succeeded", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                     ((Activity) context).finish();
                 }
