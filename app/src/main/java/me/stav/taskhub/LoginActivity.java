@@ -44,10 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword = findViewById(R.id.forgotPassword);
         createNewAccount = findViewById(R.id.createNewAccount);
 
+        // Creating filter for InternetBroadcastReceiver and registering receiver
         IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         internetConnectionReceiver = new InternetConnectionReceiver();
         registerReceiver(internetConnectionReceiver, filter);
 
+        // Checking if btn was clicked and checking if phone is connected to the internet
         loginBtn.setOnClickListener(v -> {
             internetConnection = internetConnectionReceiver.getInternetConnection();
             if (internetConnection.isConnected()) {
@@ -57,23 +59,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Going to register activity
         createNewAccount.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
 
+        // Forgot password
         forgotPassword.setOnClickListener(v -> {
             forgotPassword();
         });
     }
 
     private void forgotPassword() {
+        // Creating a dialog box with an edit text
         EditText editTextAlertDialog = new EditText(this);
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Forgot your password?")
                 .setMessage("Enter your email address")
                 .setView(editTextAlertDialog)
                 .setPositiveButton("Confirm", (dialog, which) -> {
+                    // Checking if email is valid, if so sending an email with a link
                     String email = editTextAlertDialog.getText().toString();
                     if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         firebaseHandler.forgotPassword(email);
@@ -90,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        // Unregistering receiver
         unregisterReceiver(internetConnectionReceiver);
         super.onDestroy();
     }

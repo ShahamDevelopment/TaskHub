@@ -33,11 +33,13 @@ public class FirebaseHandler {
             fbAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) { // Login Succeed
-                    Toast.makeText(context, "Login succeeded", Toast.LENGTH_SHORT).show();
+                    if (task.isSuccessful()) {
+                        Toast.makeText(context, "Login succeeded", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(context, HomeActivity.class);
-                    context.startActivity(intent);
-                    ((Activity) context).finish();
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        context.startActivity(intent);
+                        ((Activity)context).finish(); //This destroy the your activity class
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -54,11 +56,13 @@ public class FirebaseHandler {
             fbAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) { // Login Succeed
-                    Toast.makeText(context, "Register Succeed succeeded", Toast.LENGTH_SHORT).show();
+                    if (task.isSuccessful()) {
+                        Toast.makeText(context, "Register Succeed succeeded", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    context.startActivity(intent);
-                    ((Activity) context).finish();
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        context.startActivity(intent);
+                        ((Activity)context).finish(); //This destroy the your activity class
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -142,5 +146,9 @@ public class FirebaseHandler {
                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public FirebaseAuth getAuth() {
+        return fbAuth;
     }
 }

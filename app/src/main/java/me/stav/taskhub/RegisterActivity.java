@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Initializing values
         firebaseHandler = new FirebaseHandler(RegisterActivity.this);
 
         editTextEmail = findViewById(R.id.editTextEmailRegister);
@@ -36,10 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.registerBtn);
         haveAnAccount = findViewById(R.id.haveAnAccount);
 
+        // Creating filter for internet broadcast receiver and registering receiver
         internetConnectionReceiver = new InternetConnectionReceiver();
         IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetConnectionReceiver, filter);
 
+        // Checking if btn was clicked and checking if phone is connected to the internet
         registerBtn.setOnClickListener(v -> {
             internetConnection = internetConnectionReceiver.getInternetConnection();
             if (internetConnection.isConnected()) {
@@ -49,9 +52,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Going to register activity
         haveAnAccount.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
+            finish(); //This destroy the your activity class
         });
     }
 

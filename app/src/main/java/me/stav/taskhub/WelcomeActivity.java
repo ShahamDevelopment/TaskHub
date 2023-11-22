@@ -67,13 +67,18 @@ public class WelcomeActivity extends AppCompatActivity {
         changeStatusBarColor();
     }
 
+    // Function gets the current page, and sets the dots' color
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
 
+        // Getting the color array
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
+        // Clearing current dots from the layout
         dotsLayout.removeAllViews();
+
+        // Setting the new dots with the unactive color
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml(";"));
@@ -82,6 +87,7 @@ public class WelcomeActivity extends AppCompatActivity {
             dotsLayout.addView(dots[i]);
         }
 
+        // Changing the current page colors
         if (dots.length > 0)
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
@@ -101,7 +107,7 @@ public class WelcomeActivity extends AppCompatActivity {
         public void onPageSelected(int position) {
             addBottomDots(position);
 
-            // changing the next button text 'NEXT' / 'GOT IT'
+            // changing the next button text 'NEXT' / 'GOT IT' and adding the texts from the files
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.start));
@@ -113,7 +119,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 setTextsForSlidersContent(R.raw.second_title, secondTitle);
                 setTextsForSlidersContent(R.raw.second_description, secondDescription);
             } else {
-                // still pages are left
+                // still pages are left and adding the texts from the files
                 btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
 
@@ -125,6 +131,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }
 
+        // Adding the texts for the first view
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
             firstTitle = findViewById(R.id.first_title);
@@ -162,17 +169,20 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.welcome_slide2
         };
 
+        // Setting the new page adapter
         myViewPagerAdapter = new MyViewPagerAdapter(WelcomeActivity.this, this.layouts);
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
+        // Checking the skip btn click
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchLoginScreen();
+                launchRegisterScreen();
             }
         });
 
+        // Checking the next btn, move to home screen or next swipe screen
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,18 +192,21 @@ public class WelcomeActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchLoginScreen();
+                    launchRegisterScreen();
                 }
             }
         });
 
     }
 
-    private void launchLoginScreen() {
+    // Starting register screen
+    private void launchRegisterScreen() {
         Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
         startActivity(intent);
+        finish();
     }
 
+    // Reading the text from a file, and setting it into a textview
     private void setTextsForSlidersContent(int rawResourceId, TextView textView) {
         InputStream inputStream = getResources().openRawResource(rawResourceId);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
