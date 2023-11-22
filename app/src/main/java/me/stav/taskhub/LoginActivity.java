@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initializing values
+
         firebaseHandler = new FirebaseHandler(LoginActivity.this);
 
         editTextEmail = findViewById(R.id.editTextEmailLogin);

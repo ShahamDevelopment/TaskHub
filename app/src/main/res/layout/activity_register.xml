@@ -104,7 +104,7 @@
             android:layout_marginStart="15dp">
 
             <EditText
-                android:id="@+id/editTextEmailLogin"
+                android:id="@+id/editTextEmailRegister"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -134,7 +134,7 @@
             android:layout_marginStart="15dp">
 
             <EditText
-                android:id="@+id/editTextPasswordLogin"
+                android:id="@+id/editTextPasswordRegister"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
