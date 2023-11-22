@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="me.stav.taskhub.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_boards"
+        android:name="me.stav.taskhub.ui.boards.BoardsFragment"
+        android:label="@string/boards"
+        tools:layout="@layout/fragment_boards" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="me.stav.taskhub.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_settings"
+        android:name="me.stav.taskhub.ui.settings.SettingsFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
