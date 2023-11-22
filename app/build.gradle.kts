@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "me.stav.taskhub"
-    compileSdk = 28
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "me.stav.taskhub"
         minSdk = 26
-        targetSdk = 28
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -43,6 +43,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.0.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.google.android.material:material:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

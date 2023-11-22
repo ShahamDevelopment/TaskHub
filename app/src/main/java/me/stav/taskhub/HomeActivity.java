@@ -1,5 +1,7 @@
 package me.stav.taskhub;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.stav.taskhub.databinding.ActivityHomeBinding;
+import me.stav.taskhub.utilities.InternetConnectionReceiver;
 
 public class HomeActivity extends AppCompatActivity {
 
