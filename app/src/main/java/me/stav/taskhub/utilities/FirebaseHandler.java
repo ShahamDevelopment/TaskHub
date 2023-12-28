@@ -11,9 +11,14 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import me.stav.taskhub.HomeActivity;
@@ -22,9 +27,15 @@ import me.stav.taskhub.LoginActivity;
 public class FirebaseHandler {
     private final Context context;
     private final FirebaseAuth fbAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     public FirebaseHandler(Context context) {
         this.context = context;
         this.fbAuth = FirebaseAuth.getInstance();
+
+        this.firebaseDatabase = FirebaseDatabase.getInstance();
+        this.databaseReference = firebaseDatabase.getReference();
     }
 
     // Function gets two strings, and uses Firebase to login.
@@ -148,7 +159,47 @@ public class FirebaseHandler {
         });
     }
 
+    public ArrayList<Board> getUserBoards() {
+        ArrayList<Board> boards = new ArrayList<>();
+
+        return boards;
+    }
+
     public FirebaseAuth getAuth() {
         return fbAuth;
+    }
+
+    public void createNewBoard(Board board, Listener<Boolean> listener) {
+        databaseReference.child("boards").child(board.getBoardId() + "").setValue(board).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                listener.onListen(task.isSuccessful());
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "Board created successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }). addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void findBoardById(int id, Listener<Boolean> listener) {
+        databaseReference.child("boards").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                        if (snapshot.child(id + "").exists()) {
+                            listener.onListen(true);
+                        } else {
+                            listener.onListen(false);
+                        }
+                    }
+                }
+            }
+        });
     }
 }

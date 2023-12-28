@@ -22,10 +22,8 @@ public class InternetConnectionReceiver extends BroadcastReceiver {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null) {
-            Toast.makeText(context, "Internet", Toast.LENGTH_SHORT).show();
             internetConnection.setConnected(true);
         } else {
-            Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
             internetConnection.setConnected(false);
         }
     }

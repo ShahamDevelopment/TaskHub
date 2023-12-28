@@ -34,4 +34,5 @@
     <string name="create_new_account">CREATE NEW ACCOUNT</string>
     <string name="logout">Logout</string>
     <string name="boards">Boards</string>
+    <string name="my_boards">My Boards:</string>
 </resources>

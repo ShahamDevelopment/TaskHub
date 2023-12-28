@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Dashed Square -->
+    <item>
+        <shape>
+            <size
+                android:width="100dp"
+                android:height="100dp"
+                />
+
+            <stroke
+                android:width="2dp"
+                android:color="@color/colorPrimary"
+                android:dashWidth="8dp"
+                android:dashGap="4dp"
+                />
+
+            <corners android:radius="10dp" />
+
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Plus Sign (Solid) -->
+    <item android:gravity="center">
+        <shape android:shape="oval">
+            <size android:width="20dp" android:height="2dp"/>
+            <solid android:color="@color/colorPrimary"/>
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <shape android:shape="oval">
+            <size android:width="2dp" android:height="20dp"/>
+            <solid android:color="@color/colorPrimary"/>
+        </shape>
+    </item>
+
+</layer-list>

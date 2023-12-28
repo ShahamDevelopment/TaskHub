@@ -11,13 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import me.stav.taskhub.databinding.FragmentBoardsBinding;
+import me.stav.taskhub.utilities.Board;
 
 public class BoardsFragment extends Fragment {
 
     private FragmentBoardsBinding binding;
+    private Board board;
+
+    public BoardsFragment(Board board) {
+        this.board = board;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        // Fragment defaults
         BoardsViewModel boardsViewModel =
                 new ViewModelProvider(this).get(BoardsViewModel.class);
 
